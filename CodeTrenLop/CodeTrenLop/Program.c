@@ -68,6 +68,15 @@ void demoMangHaiChieu()
 		printf_s("\n");
 	}
 }
+
+void demoString()
+{
+	char mangKyTu[10] = "ANH";
+	printf_s("Nhap du lieu");
+	fgets(mangKyTu, sizeof(mangKyTu), stdin);
+	printf_s("%s", mangKyTu);
+}
+
 void lapChucNang(int chonChucNang)
 {
 	int tiepTuc = 1;
@@ -84,11 +93,13 @@ void lapChucNang(int chonChucNang)
 		case 3:
 			demoMangHaiChieu();
 			break;
+		case 4:
+			demoString();
+			break;
 		default:
-			printf("Chon sai. Chuc nang hop le [0-3]");
+			printf("Chon sai. Chuc nang hop le [0-4]");
 			break;
 		}
-
 		printf("Tiep tuc thuc hien chuc nang nay? [1=Co | 0=Khong]: ");
 		scanf_s("%d", &tiepTuc);
 		system("cls");
