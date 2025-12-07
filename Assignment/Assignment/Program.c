@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 void Menu()
 {
@@ -43,7 +44,6 @@ int cp(int n)
 			return 0;
 	}
 }
-// CN1
 void KiemTraSoNguyen()
 {
 	system("cls");
@@ -279,6 +279,65 @@ void ThongTinSinhVien()
 	system("cls");
 	printf_s("CN8: THONG TIN SINH VIEN\n");
 	printf_s("-----Bat dau thuc hien chuc nang-----\n");
+	int n;
+#define MAX 100
+	char hoTen[MAX][50];
+	float diemTK[MAX];
+	char hocLuc[100][20];
+	do
+	{
+		printf_s("Nhap so luong sinh vien: ");
+		scanf_s("%d", &n);
+		if (n <= 0)
+		{
+			printf_s("So luong sinh vien phai lon hon 0. Vui long nhap lai!\n");
+		}
+	} while (n <= 0);
+
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("Nhap ho ten sinh vien thu %d: ", i + 1);
+		fgetc(stdin);
+		fgets(hoTen[i], sizeof(hoTen[i]), stdin);
+		do
+		{
+			printf_s("Nhap diem tong ket: ");
+			scanf_s("%f", &diemTK[i]);
+			if (diemTK[i] < 0 || diemTK[i] > 10)
+			{
+				printf_s("Diem tong ket phai trong khoang 0-10. Vui long nhap lai!\n");
+			}
+		} while (diemTK[i] < 0 || diemTK[i] > 10);
+		if (diemTK[i] >= 9)
+		{
+			strcpy_s(hocLuc[i], sizeof(hocLuc[i]), "Xuat Sac");
+		}
+		else if (diemTK[i] >= 8)
+		{
+			strcpy_s(hocLuc[i], sizeof(hocLuc[i]), "Gioi");
+		}
+		else if (diemTK[i] >= 6.5)
+		{
+			strcpy_s(hocLuc[i], sizeof(hocLuc[i]), "Kha");
+		}
+		else if (diemTK[i] >= 5)
+		{
+			strcpy_s(hocLuc[i], sizeof(hocLuc[i]), "Trung Binh");
+		}
+		else
+		{
+			strcpy_s(hocLuc[i], sizeof(hocLuc[i]), "Yeu");
+		}
+	}
+	system("cls");
+	printf_s("\nDanh sach sinh vien\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("\nSinh vien thu %d:\n", i + 1);
+		printf_s("Ho ten: %s", hoTen[i]);
+		printf_s("Diem tong ket: %.2f\n", diemTK[i]);
+		printf_s("Xep loai hoc luc: %s\n", hocLuc[i]);
+	}
 }
 void GameFPOLYLOTT()
 {
@@ -435,7 +494,7 @@ int main()
 							TinhToanPhanSo();
 							break;
 						}
-						printf_s("Ban co muon thuc hien lai chuc nang nay [1 = Co || 0 = Khong]\n");
+						printf_s("Ban co muon thuc hien lai chuc nang nay [1 = Co || Khac = Khong]\n");
 						printf_s("Moi nguoi dung nhap:");
 						if (scanf_s("%d", &tiepTuc) != 1)
 						{

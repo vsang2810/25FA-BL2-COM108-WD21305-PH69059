@@ -1,24 +1,131 @@
-// CConsoleApplication.c : file nay chua 'main' function. 
-// Chuong trinh phan mem Bat dau thuc thi & Ket thuc o day.
+﻿#include <stdio.h>
+#include <string.h>
 
-#include <stdio.h>
+#define MAX 100
 
-int main()
-{
-    printf("Hi there!\n");
+// Khai báo cấu trúc SinhVien
+struct SinhVien {
+    char mssv[15];
+    char tenSV[50];
+    char nganhHoc[50];
+    float diemTB;
+};
+
+int main() {
+    struct SinhVien mangSV[MAX];  // Mảng lưu tối đa 100 sinh viên
+    int n, i;
+
+    // Nhập số lượng sinh viên muốn thêm
+    printf("Nhap so luong sinh vien muon them: ");
+    scanf("%d", &n);
+    
+    // Kiểm tra số lượng hợp lệ
+    while (n <= 0 || n > MAX) {
+        printf("So luong khong hop le! Vui long nhap lai (1 - %d): ", MAX);
+        scanf("%d", &n);
+    }
+
+    // Nhập thông tin từng sinh viên
+    for (i = 0; i < n; i++) {
+        printf("\n--- Nhap thong tin sinh vien thu %d ---\n", i + 1);
+        
+        printf("Nhap ma so sinh vien: ");
+        scanf(" %[^\n]%*c", mangSV[i].mssv);  // Đọc cả dấu cách
+        
+        printf("Nhap ho va ten sinh vien: ");
+        scanf(" %[^\n]%*c", mangSV[i].tenSV);
+        
+        printf("Nhap nganh hoc: ");
+        scanf(" %[^\n]%*c", mangSV[i].nganhHoc);
+        
+        printf("Nhap diem trung binh: ");
+        scanf("%f", &mangSV[i].diemTB);
+    }
+
+    // Xuất thông tin tất cả sinh viên
+    printf("\n\n==========================================\n");
+    printf("          DANH SACH SINH VIEN           \n");
+    printf("==========================================\n");
+    printf("%-15s %-25s %-20s %-10s\n", "MSSV", "Ho va ten", "Nganh hoc", "Diem TB");
+    printf("---------------------------------------------------------------\n");
+
+    for (i = 0; i < n; i++) {
+        printf("%-15s %-25s %-20s %-10.2f\n", 
+               mangSV[i].mssv, 
+               mangSV[i].tenSV, 
+               mangSV[i].nganhHoc, 
+               mangSV[i].diemTB);
+    }
+    printf("==========================================\n");
+
+    return 0;
 }
+// sap xep
+//#include <stdio.h>
+//
+//#include <string.h>
 
-// Debug/Run chuong trinh: bam "F5" hoac "Debug > Start Debugging" tren menu
+//#define MAX 100
 
-// Danh cho nguoi moi bat dau:
-//   1. Dung "Solution Explorer window" de them/quan ly cac files
-//   2. Dung "Output window" de kiem tra "build output" va "cac thong bao khac"
-//   3. Dung "Error List window" de xem loi
-//   4. Chon "Project > Add New Item" de tao moi file code,
-//      hoac "Project > Add Existing Item" de them file da ton tai vao project nay.
-//   5. Sau nay, de mo lai project nay,
-//      chon "File > Open > Project" va chon file *.sln
-//      Co the xem thu muc project, noi luu file *.sln bang cach
-//      bam phim chuot phai vao "Solution" > chon "Open Folder in File Explorer"
+// Khai báo cấu trúc SinhVien (giống bài 1)
+struct SinhVien {
+    char mssv[15];
+    char tenSV[50];
+    char nganhHoc[50];
+    float diemTB;
+};
 
-// GV: AnhTT184
+int main() {
+    struct SinhVien mangSV[MAX];
+    int n, i, j;
+
+    // ================== NHẬP DỮ LIỆU (từ bài 1) ==================
+    printf("Nhap so luong sinh vien: ");
+    scanf("%d", &n);
+    while (n <= 0 || n > MAX) {
+        printf("So luong khong hop le! Nhap lai (1-%d): ", MAX);
+        scanf("%d", &n);
+    }
+
+    for (i = 0; i < n; i++) {
+        printf("\n--- Sinh vien thu %d ---\n", i + 1);
+        printf("MSSV: ");
+        scanf(" %[^\n]%*c", mangSV[i].mssv);
+        printf("Ho va ten: ");
+        scanf(" %[^\n]%*c", mangSV[i].tenSV);
+        printf("Nganh hoc: ");
+        scanf(" %[^\n]%*c", mangSV[i].nganhHoc);
+        printf("Diem TB: ");
+        scanf("%f", &mangSV[i].diemTB);
+    }
+
+    // ================== SẮP XẾP THEO ĐIỂM TĂNG DẦN ==================
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (mangSV[j].diemTB > mangSV[j + 1].diemTB) {
+                // Tạo biến tạm để hoán vị toàn bộ thông tin sinh viên
+                struct SinhVien temp = mangSV[j];
+                mangSV[j] = mangSV[j + 1];
+                mangSV[j + 1] = temp;
+            }
+        }
+    }
+
+    // ================== XUẤT KẾT QUẢ SAU KHI SẮP XẾP ==================
+    printf("\n\n================================================\n");
+    printf("     DANH SACH SINH VIEN SAU KHI SAP XEP TANG DAN THEO DIEM\n");
+    printf("================================================\n");
+    printf("%-12s %-25s %-20s %-10s\n", "MSSV", "Ho va ten", "Nganh hoc", "Diem TB");
+    printf("------------------------------------------------------------\n");
+
+    for (i = 0; i < n; i++) {
+        printf("%-12s %-25s %-20s %8.2f\n",
+            mangSV[i].mssv,
+            mangSV[i].tenSV,
+            mangSV[i].nganhHoc,
+            mangSV[i].diemTB);
+    }
+    printf("================================================\n");
+
+    return 0;
+}
